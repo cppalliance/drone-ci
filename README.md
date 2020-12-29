@@ -11,7 +11,9 @@ If you are a Boost author, follow these steps to get started.
 - A list of repositories will appear. For each repo, click and then choose "Activate Repository".  
 - In the settings page, change Configuration from .drone.yml to .drone.star. "Save".  
   
-Push a commit to one of the main git branches such as "develop" or "master", or submit a pull request, to trigger a build in drone.  
+The drone files must be present in the target branch, so merge .drone.star into "develop" if you have not already done so.  
+  
+Push a new commit or submit a pull request to trigger a build in drone.  
   
 ### Potential Issues
 
