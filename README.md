@@ -15,7 +15,10 @@ The drone files must be present in the target branch, so merge .drone.star into 
   
 Push a new commit or submit a pull request to trigger a build in drone.  
   
-### Potential Issues
+
+The .drone.star file uses [the starlark language](https://docs.bazel.build/versions/master/skylark/language.html). Starlark’s syntax is inspired by (and nearly identical to) Python3. This allows great flexibility when creating a config file.  
+
+### More Information:
 
 - asan jobs require privileged access, and will show an error about "LeakSanitizer does not work under ptrace".  Add an argument "privileged=True" to linux_cxx() in the .drone.star file. 
   
