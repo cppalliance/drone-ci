@@ -27,5 +27,7 @@ The .drone.star file uses [the starlark language](https://docs.bazel.build/versi
 - asan jobs require privileged access, and will show an error about "LeakSanitizer does not work under ptrace".  Add an argument "privileged=True" to linux_cxx() in the .drone.star file. 
   
 - If one of the jobs shows an error about requiring privileged access in the Drone UI, contact an administrator to increase privileges for the docker container.
-
+  
+- [Further documentation included here.](docs/drone-ci.md)  
+  
 - If you have any questions or problems, please open an Issue in this github repo.  
