@@ -20,8 +20,55 @@ These images have been preinstalled with most of the packages found on a travis-
 For OSX builds, specify the xcode version instead of the image. Recent versions of xcode from 6.4 to 11.7 are available.  
   
 xcode_version="10.3"  
-  
+
+### linux_cxx function
+
+To add more linux-based jobs, add instances of of linux_cxx, following the example in .drone.star. 
+
+Here is a review of each argument to the function:
+
+name - The name field will be displayed for each job in the Drone UI (drone.cpp.al). You are encouraged to adjust the name to be more descriptive. When the first batch of .drone.star files was created using an automated script, the name was based on the environment variables in .travis.yml. The original .travis.yml file doesn't include a name, so it had to be invented. The script truncates the name at around 50 characters, since a long name will not be displayed on the web page.
+
+cxx - This is the CXX environment variable.
+
+cxxflags - The CXXFLAGS environment variable. For both cxx and cxxflags, you may set them as function args, or as environment variables in the "environment" section later.  
+
+packages - a list of apt packages to install.
+
+sources - a list of apt sources to install.
+
 The job fields "llvm_os" and "llvm_ver" are used to install the correct version of LLVM by [linux-cxx-install.sh](https://github.com/boostorg/boost-ci/blob/master/ci/drone/linux-cxx-install.sh).  
 
-llvm_os is the Ubuntu descriptive name such as "xenial" or "bionic".  
-llvm_ver is the version such as "5.0".  
+llvm_os - the Ubuntu descriptive name such as "xenial" or "bionic".  
+
+llvm_ver - the version such as "5.0".  
+
+arch - the platform architecture, usually "amd64"
+
+image - the docker image to run the build. See discussion above. 
+
+buildtype - which script in the .drone folder will be called. The most common script is named boost.sh, and for a job to refer to this script set the buildtype to "boost". Other less common scripts were labelled with a sha hash, such as "81e7b2095f-2ddd7570b8.sh". Set buildtype to match, such as "81e7b2095f-2ddd7570b8". You may change these names to something more meanful.  
+
+environment - a dictionary of environment variables.  
+
+globalenv - a dictionary of environment variables for all jobs. Usually globalenv=globalenv , and then set globalenv at the top of the file.  
+
+privileged - set privileged=True if the Drone job needs to run in a privileged Docker container. (usually not the case)  
+
+### Why is there a dependency on the https://github.com/boostorg/boost-ci repository?  
+
+The .drone.star file includes functions.star from https://github.com/boostorg/boost-ci/blob/master/ci/drone/functions.star . Most reusable drone code was removed from the .drone.star files and migrated to the https://github.com/boostorg/boost-ci/blob/master/ci/drone folder to facilitate better maintainability and manageability.  A fix can be done in one place, in boost-ci, instead of rolling out two hundred individual pull requests.   
+
+Although not recommended, here are the steps to optionally remove that dependency:  
+
+copy the contents of functions.star directly into your .drone.star file  
+copy the .sh shell scripts to your local repo's .drone directory  
+modify the functions in .drone.star to call the .sh scripts at their new path (which is .drone). So,  
+```
+ "./.drone/boost-ci/ci/drone/linux-cxx-install.sh",
+```
+changes to  
+```
+ "./.drone/linux-cxx-install.sh",
+```
+

@@ -1,5 +1,13 @@
 
-A CPPAlliance hosted [Drone](https://www.drone.io/) server for Boost libraries.  
+### Introduction  
+
+[Drone](https://www.drone.io/) is a continuous integration framework similar to Travis CI. [The C++ Alliance](https://cppalliance.org/) is offering a hosted Drone server for Boost libraries. 
+
+The motivation for setting up an internal CI system is that travis-ci.org builds have become slow, and they have announced the imminent shutdown of the  website. An extensive review of self-hosted options was conducted, including many Continuous Integration services from https://github.com/ligurio/awesome-ci . Drone was chosen because it provides a feature set similar to Travis, it's easy to use, fully featured, free, open source, and it seems to be well designed and well supported. Drone permits self-hosting. Dedicated servers can be built and scaled out as needed.  
+
+The C++ Alliance is not proposing that Drone should be the only alternative for Boost libraries, but rather that having multiple active CI systems provides better redundancy and more test coverage. 
+
+A project to convert .travis.yml to Github Actions is also underway.  
   
 ### Instructions:  
   
