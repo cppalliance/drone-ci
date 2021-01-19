@@ -47,7 +47,13 @@ arch - the platform architecture, usually "amd64"
 
 image - the docker image to run the build. See discussion above. 
 
-buildtype - which script in the .drone folder will be called. The most common script is named boost.sh, and for a job to refer to this script set the buildtype to "boost". Other less common scripts were labelled with a sha hash, such as "81e7b2095f-2ddd7570b8.sh". Set buildtype to match, such as "81e7b2095f-2ddd7570b8". You may change these names to something more meanful.  
+buildtype - Originally, buildtype referred to which script in the .drone folder would be called. The most common script is named "boost.sh", and for a job to refer to this script set the buildtype to "boost". Other less common scripts were labelled with a sha hash, such as "81e7b2095f-2ddd7570b8.sh". Set buildtype to match, such as "81e7b2095f-2ddd7570b8". It is recommended to changes these hashes to something more meanful, such as "valgrind" or "docs-script".  If the buildscript variable is set (see next variable), then the buildtypes are all consolidated inside one buildscript instead of being separate files. Within the one buildscript, the buildtypes are conditionally called.  
+
+buildscript - Newer versions of the drone files have a variable called buildscript. If buildscript is present, it will be the script called. Usually, this will be set to "drone", and so the script is ".drone/drone.sh". In that file, buildtypes are "if" conditional sections.  
+
+```
+if [ "$DRONE_JOB_BUILDTYPE" == "{{ buildtype }}" ]; then .... "
+```
 
 environment - a dictionary of environment variables.  
 
