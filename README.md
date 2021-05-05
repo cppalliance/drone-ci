@@ -22,9 +22,10 @@ If you are a Boost author, follow these steps to get started.
 The drone files must be present in the target branch, so merge .drone.star into "develop" if you have not already done so.  
   
 Push a new commit or submit a pull request to trigger a build in drone.  
-  
 
 The .drone.star file uses [the starlark language](https://docs.bazel.build/versions/master/skylark/language.html). Starlark’s syntax is inspired by (and nearly identical to) Python3. This allows great flexibility when creating a config file.  
+
+The hosted instance of Drone at https://drone.cpp.al has an access filter permitting any boostorg github repository. If you would like to add a fork under a different account name, please contact us.
 
 ### More Information:
 
