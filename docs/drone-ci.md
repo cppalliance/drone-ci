@@ -14,6 +14,7 @@ cppalliance/droneubuntu1804:1
 cppalliance/droneubuntu2004:1  
 cppalliance/dronevs2017  
 cppalliance/dronevs2019  
+cppalliance/dronevs2022
   
 These images have been preinstalled with most of the packages found on a travis-ci image.  
 
@@ -60,6 +61,18 @@ environment - a dictionary of environment variables.
 globalenv - a dictionary of environment variables for all jobs. Usually globalenv=globalenv , and then set globalenv at the top of the file.  
 
 privileged - set privileged=True if the Drone job needs to run in a privileged Docker container. (usually not the case)  
+
+## Multiarch
+
+In order to test on arm64 platforms, specify one of these images  
+
+cppalliance/droneubuntu1204:multiarch  
+cppalliance/droneubuntu1404:multiarch  
+cppalliance/droneubuntu1604:multiarch  
+cppalliance/droneubuntu1804:multiarch  
+cppalliance/droneubuntu2004:multiarch  
+
+Include the parameter arch="arm64" in the job spec.
 
 ### Why is there a dependency on the https://github.com/boostorg/boost-ci repository?  
 
