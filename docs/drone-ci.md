@@ -13,7 +13,7 @@ cppalliance/droneubuntu1604:1
 cppalliance/droneubuntu1804:1  
 cppalliance/droneubuntu2004:1  
 cppalliance/dronevs2017  
-cppalliance/dronevs2019  
+cppalliance/dronevs2019:2  
 cppalliance/dronevs2022
   
 These images have been preinstalled with most of the packages found on a travis-ci image.  
