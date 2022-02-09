@@ -64,7 +64,7 @@ privileged - set privileged=True if the Drone job needs to run in a privileged D
 
 ## Multiarch
 
-In order to test on arm64 platforms, specify one of these images  
+In order to test on arm64 or s390x platforms, specify one of these images  
 
 cppalliance/droneubuntu1204:multiarch  
 cppalliance/droneubuntu1404:multiarch  
@@ -72,7 +72,7 @@ cppalliance/droneubuntu1604:multiarch
 cppalliance/droneubuntu1804:multiarch  
 cppalliance/droneubuntu2004:multiarch  
 
-Include the parameter arch="arm64" in the job spec.
+Include the parameter arch="arm64" or arch="s390x" in the job spec.
 
 ### Why is there a dependency on the https://github.com/boostorg/boost-ci repository?  
 
@@ -91,3 +91,6 @@ changes to
  "./.drone/linux-cxx-install.sh",
 ```
 
+### How are the docker images created?  
+
+As a reference, a copy of the Dockerfiles used to create the images and containers may be found in the dockers/ directory of this repository.   
