@@ -7,7 +7,9 @@ The motivation for setting up an internal CI system is that travis-ci.org builds
 
 The C++ Alliance is not proposing that Drone should be the only alternative for Boost libraries, but rather that having multiple active CI systems provides better redundancy and more test coverage. 
 
-A project to convert .travis.yml to Github Actions is also underway.  
+Another set of pull requests were sent which converted .travis.yml to a [Github Actions](https://github.com/CPPAlliance/githubactions) config.  
+
+To find a copy of the most up-to-date github actions or drone config file, check [boost-ci](https://github.com/boostorg/boost-ci).  
   
 ### Instructions:  
   
