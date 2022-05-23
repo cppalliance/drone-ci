@@ -41,14 +41,14 @@ source "amazon-ebs" "example" {
   # secret_key    = "${var.aws_secret_key}"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 32
+    volume_size = 40
     volume_type = "gp2"
     delete_on_termination = true
   }
-  # old:
-  source_ami = "ami-0c2a6ca043d888a29"
-  # new:
-  # source_ami = "ami-00dadcba3f6d87097"
+  source_ami = "ami-025fc2c61f9333edc"
+  # 1. was ok source_ami = "ami-0c2a6ca043d888a29"
+  # 2. no source_ami = "ami-00dadcba3f6d87097"
+  # 3. trying source_ami = "ami-025fc2c61f9333edc"
 
   # source_ami_filter {
   #   filters = {
@@ -81,6 +81,9 @@ build {
       "sudo sleep 3",
       "sudo systemctl stop docker && sleep 1",
       "sudo systemctl start docker && sleep 1",
+      "sudo systemctl stop unattended-upgrades",
+      "sudo systemctl disable unattended-upgrades",
+      "sudo docker pull cppalliance/droneubuntu2204:multiarch",
       "sudo docker pull cppalliance/droneubuntu2004:multiarch",
       "sudo docker pull cppalliance/droneubuntu1804:multiarch",
       "sudo docker pull cppalliance/droneubuntu1604:multiarch",

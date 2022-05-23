@@ -41,7 +41,7 @@ source "amazon-ebs" "example" {
   # secret_key    = "${var.aws_secret_key}"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 32
+    volume_size = 40
     volume_type = "gp2"
     delete_on_termination = true
   }
@@ -74,6 +74,9 @@ build {
       "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
       "sudo apt-get update",
       "sudo apt-get install -y docker-ce docker-ce-cli docker-ce-rootless-extras",
+      "sudo systemctl stop unattended-upgrades",
+      "sudo systemctl disable unattended-upgrades",
+      "sudo docker pull cppalliance/droneubuntu2204:1",
       "sudo docker pull cppalliance/droneubuntu2004:1",
       "sudo docker pull cppalliance/droneubuntu1804:1",
       "sudo docker pull cppalliance/droneubuntu1604:1",
