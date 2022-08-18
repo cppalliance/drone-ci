@@ -74,6 +74,8 @@ RUN choco install -y windows-sdk-10.1
 # Another resulting package
 # RUN choco install -y chocolatey-core.extension --version 1.3.5.1
 
+RUN choco install -y powershell-core --version 7.2.6
+
 RUN mklink /D "Git" "C:\Program Files\Git"
 RUN setx path "C:\Git\usr\bin\;%path%"
 
