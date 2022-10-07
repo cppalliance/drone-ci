@@ -29,6 +29,21 @@ List of available versions:
 12.5 12.5.1 13.0 13.1 13.2 13.2.1 13.3 13.3.1 13.4 13.4.1
 ```
 
+FreeBSD uses the setting `freebsd_version` instead of `image`, and defaults to `freebsd_version="13.1"` which is the version being hosted currently. Here are examples of FreeBSD jobs. Notice the linkflags used with gcc:  
+
+```
+  freebsd_cxx("gcc 11 freebsd", "g++-11", buildtype="boost", buildscript="drone", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20', 'B2_LINKFLAGS': '-Wl,-rpath=/usr/local/lib/gcc11'}, globalenv=globalenv),
+  freebsd_cxx("clang 14 freebsd", "clang++-14", buildtype="boost", buildscript="drone", freebsd_version="13.1", environment={'B2_TOOLSET': 'clang-14', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+```
+
+Full list of compilers on FreeBSD:  
+```
+g++-8 g++-9 g++-10 g++-11  
+clang++-10 clang++-11 clang++-12 clang++-13 clang++-14 clang++-15  
+```
+
+If you need a package installed on MacOS or FreeBSD, please open an issue.  
+
 ### linux_cxx function
 
 To add more linux-based jobs, add instances of of linux_cxx, following the example in .drone.star. 
