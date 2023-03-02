@@ -117,3 +117,26 @@ changes to
 ### How are the docker images created?  
 
 As a reference, a copy of the Dockerfiles used to create the images and containers may be found in the dockers/ directory of this repository.   
+
+### Drone Caching  
+
+This is an experimental feature being tested on CPPAlliance repos first.  
+
+The drone-cache plugin https://github.com/meltwater/drone-cache enables caching files between builds to speed up processing times.  
+
+In the .drone.star file set these environment variables.  
+
+```
+environment={'drone_cache_mount': '_path_to_mount_', 'drone_cache_rebuild': 'true'}
+```
+
+The variable 'drone_cache_mount' should be a subdirectory such as boost-root that will be cached. By defining this, caching will take place. 'drone_cache_mount' can also take a comma-separated list of multiple directories.   
+
+The variable 'drone_cache_rebuild' is partly optional. In the context of drone_cache "rebuild" means "upload". Only set this on a few jobs. For example, once per operating system. Not all Ubuntu 22.04 instances need to upload the same cache.
+
+Source code https://github.com/sdarwin/boost-ci/blob/drone_cache/ci/drone/functions.star
+
+Further discussion:
+
+Set 'drone_cache_mount' as the path to boost-root and it will be cached. Since the most frequent and optimal case is for the cache to be restored, this is what will happen every time. After it has been downloaded there are multiple choices. 1. Make a calculation in drone.sh to determine if boost-root may be used as-is without further updates. Or 2. Even without any calculation it would not be overly time consuming to update git submodules every time, since git is efficient.  
+
