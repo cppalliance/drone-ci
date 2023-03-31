@@ -24,7 +24,7 @@ RUN mkdir -p /opt/github && \
   cd llvm && \
   mkdir build && \
   cd build && \
-  cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra' -DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libc' -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local/$LLVMDIR ../llvm && \
+  cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra' -DLLVM_ENABLE_RTTI=ON -DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libc' -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local/$LLVMDIR ../llvm && \
   cmake --build . -j $CPUS && \
   cmake --install . && \
   cd ../../.. && \

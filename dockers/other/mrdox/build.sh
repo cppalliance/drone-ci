@@ -33,7 +33,6 @@ cd ../..
 image=cppalliance/droneubuntu2204:llvm-$llvmshortcommit
 docker build --build-arg GH_TOKEN=${GH_TOKEN} -t $image . | tee output.txt 2>&1
 echo $?
-exit
 if [ "$?" = "0" ] ; then
     docker push $image
 fi
