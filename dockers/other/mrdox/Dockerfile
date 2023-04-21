@@ -1,4 +1,4 @@
-
+ 
 FROM ubuntu:22.04
 RUN apt-get -o Acquire::Retries=3 update && DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata && apt-get -o Acquire::Retries=3 install -y sudo software-properties-common wget curl apt-transport-https git make apt-file sudo unzip libssl-dev build-essential autotools-dev autoconf automake g++ python3 python3-pip ruby cpio pkgconf ccache && apt-get install -y gcc-multilib || true && apt-get install -y g++-multilib || true &&  rm -rf /var/lib/apt/lists/*
 RUN for i in {1..3}; do apt-add-repository ppa:git-core/ppa && break || sleep 2; done
@@ -13,7 +13,7 @@ RUN pip3 install cmake
 # ARG CLANGVERSION=14.0.3
 # ARG LLVMTAG=llvmorg-14.0.3
 # ARG LLVMDIR=clang+llvm-14.0.3
-ARG LLVMDIR=clang+llvm
+ARG LLVMDIR=llvm
 ARG CPUS=4
 ARG GH_TOKEN
 RUN mkdir -p /opt/github && \
@@ -24,7 +24,8 @@ RUN mkdir -p /opt/github && \
   cd llvm && \
   mkdir build && \
   cd build && \
-  cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra' -DLLVM_ENABLE_RTTI=ON -DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libc' -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local/$LLVMDIR ../llvm && \
+  # cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra' -DLLVM_ENABLE_RTTI=ON -DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libc' -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr/local/$LLVMDIR ../llvm && \
+  cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra' -DLLVM_ENABLE_RTTI=ON -DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libc' -G "Unix Makefiles" ../llvm && \
   cmake --build . -j $CPUS && \
   cmake --install . && \
   cd ../../.. && \
