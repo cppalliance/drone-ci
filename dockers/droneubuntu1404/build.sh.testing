@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# attempting to update the certs on 14.04 didn't ultimately work out
+
+image=cppalliance/${PWD##*/}:test
+docker build -t $image .
+# docker build --pull --no-cache -t $image .
+
+if [ "$?" = "0" ] ; then
+    docker push $image
+fi
