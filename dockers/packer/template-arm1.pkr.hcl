@@ -10,7 +10,7 @@
 #
 # export AWS_ACCESS_KEY_ID=_
 # export AWS_SECRET_ACCESS_KEY=_
-# packer build template-arm1.pkr.hcl
+# packer build template-arm1.pkr.hcl | tee output-arm.out 2>&1
 #
 # Use the AWS credentials for the "packer" IAM account, which has permissions in us-west-2, for isolation, and then copies
 # the AMI to us-east-2 for usage. A copy of the installed IAM policy can be found in this directory.
@@ -34,18 +34,18 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 # post-processors on an instance created by the source.
 source "amazon-ebs" "example" {
   # access_key    = "${var.aws_access_key}"
-  ami_name      = "custom drone ${local.timestamp}"
+  ami_name      = "custom drone arm ${local.timestamp}"
   instance_type = "m6g.xlarge"
   region        = "us-west-2"
   ami_regions   = ["us-east-2"]
   # secret_key    = "${var.aws_secret_key}"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 40
+    volume_size = 50 
     volume_type = "gp2"
     delete_on_termination = true
   }
-  source_ami = "ami-025fc2c61f9333edc"
+  source_ami = "ami-012bf399e76fe4368"
   # 1. was ok source_ami = "ami-0c2a6ca043d888a29"
   # 2. no source_ami = "ami-00dadcba3f6d87097"
   # 3. trying source_ami = "ami-025fc2c61f9333edc"
@@ -83,6 +83,11 @@ build {
       "sudo systemctl start docker && sleep 1",
       "sudo systemctl stop unattended-upgrades",
       "sudo systemctl disable unattended-upgrades",
+      "sudo fallocate -l 4G /swapfile",
+      "sudo chmod 600 /swapfile",
+      "sudo mkswap /swapfile",
+      "sudo swapon /swapfile",
+      "echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab",
       "sudo docker pull cppalliance/droneubuntu2204:multiarch",
       "sudo docker pull cppalliance/droneubuntu2004:multiarch",
       "sudo docker pull cppalliance/droneubuntu1804:multiarch",

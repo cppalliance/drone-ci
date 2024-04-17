@@ -41,11 +41,11 @@ source "amazon-ebs" "example" {
   # secret_key    = "${var.aws_secret_key}"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 45
+    volume_size = 50
     volume_type = "gp2"
     delete_on_termination = true
   }
-  source_ami = "ami-0fcf52bcf5db7b003"
+  source_ami = "ami-08116b9957a259459"
   # source_ami_filter {
   #   filters = {
   #     virtualization-type = "hvm"
@@ -77,6 +77,11 @@ build {
       "sudo apt-get install -y docker-ce docker-ce-cli docker-ce-rootless-extras",
       "sudo systemctl stop unattended-upgrades",
       "sudo systemctl disable unattended-upgrades",
+      "sudo fallocate -l 4G /swapfile",
+      "sudo chmod 600 /swapfile",
+      "sudo mkswap /swapfile",
+      "sudo swapon /swapfile",
+      "echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab",
       "sudo docker pull cppalliance/droneubuntu2304:1",
       "sudo docker pull cppalliance/droneubuntu2204:1",
       "sudo docker pull cppalliance/droneubuntu2004:1",
