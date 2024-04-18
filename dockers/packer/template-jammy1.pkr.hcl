@@ -77,7 +77,7 @@ build {
       "sudo apt-get install -y docker-ce docker-ce-cli docker-ce-rootless-extras",
       "sudo systemctl stop unattended-upgrades",
       "sudo systemctl disable unattended-upgrades",
-      "sudo fallocate -l 4G /swapfile",
+      "sudo fallocate -l 8G /swapfile",
       "sudo chmod 600 /swapfile",
       "sudo mkswap /swapfile",
       "sudo swapon /swapfile",
