@@ -10,7 +10,7 @@
 #
 # export AWS_ACCESS_KEY_ID=_
 # export AWS_SECRET_ACCESS_KEY=_
-# packer build template-arm1.pkr.hcl 2>&1 | tee output-arm.out
+# packer build template-noble1.pkr.hcl | tee output.out 2>&1
 #
 # Use the AWS credentials for the "packer" IAM account, which has permissions in us-west-2, for isolation, and then copies
 # the AMI to us-east-2 for usage. A copy of the installed IAM policy can be found in this directory.
@@ -34,27 +34,23 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 # post-processors on an instance created by the source.
 source "amazon-ebs" "example" {
   # access_key    = "${var.aws_access_key}"
-  ami_name      = "custom drone arm ${local.timestamp}"
-  instance_type = "m6g.xlarge"
+  ami_name      = "custom drone ${local.timestamp}"
+  instance_type = "t2.xlarge"
   region        = "us-west-2"
   ami_regions   = ["us-east-2"]
   # secret_key    = "${var.aws_secret_key}"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 50 
+    volume_size = 50
     volume_type = "gp2"
     delete_on_termination = true
   }
-  source_ami = "ami-0c29a2c5cf69b5a9c"
-  # 1. was ok source_ami = "ami-0c2a6ca043d888a29"
-  # 2. no source_ami = "ami-00dadcba3f6d87097"
-  # 3. trying source_ami = "ami-025fc2c61f9333edc"
-
+  source_ami = "ami-0cf2b4e024cdb6960"
   # source_ami_filter {
   #   filters = {
   #     virtualization-type = "hvm"
   #     architecture = "x86_64"
-  #     name =  "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
+  #     name =  "ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"
   #     # block-device-mapping.volume-type = "gp2"
   #     root-device-type = "ebs"
   #   }
@@ -68,19 +64,17 @@ source "amazon-ebs" "example" {
 build {
   sources = ["source.amazon-ebs.example"]
 
-  # earlier:
   #"sudo bash -c \"echo deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable > /etc/apt/sources.list.d/docker.list\"",
 
   provisioner "shell" {
     inline = [
       "set -xe",
-      "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-      "sudo echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
       "sudo apt-get update",
-      "sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release docker-ce docker-ce-cli containerd.io",
-      "sudo sleep 3",
-      "sudo systemctl stop docker && sleep 1",
-      "sudo systemctl start docker && sleep 1",
+      "sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release",
+      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
+      "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+      "sudo apt-get update",
+      "sudo apt-get install -y docker-ce docker-ce-cli docker-ce-rootless-extras",
       "sudo systemctl stop unattended-upgrades",
       "sudo systemctl disable unattended-upgrades",
       "sudo fallocate -l 8G /swapfile",
@@ -88,12 +82,14 @@ build {
       "sudo mkswap /swapfile",
       "sudo swapon /swapfile",
       "echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab",
-      "sudo docker pull cppalliance/droneubuntu2404:multiarch",
-      "sudo docker pull cppalliance/droneubuntu2204:multiarch",
-      "sudo docker pull cppalliance/droneubuntu2004:multiarch",
-      "sudo docker pull cppalliance/droneubuntu1804:multiarch",
-      "sudo docker pull cppalliance/droneubuntu1604:multiarch",
-      "sudo docker pull cppalliance/droneubuntu1404:multiarch",
+      "sudo docker pull cppalliance/droneubuntu2404:1",
+      "sudo docker pull cppalliance/droneubuntu2304:1",
+      "sudo docker pull cppalliance/droneubuntu2204:1",
+      "sudo docker pull cppalliance/droneubuntu2004:1",
+      "sudo docker pull cppalliance/droneubuntu1804:1",
+      "sudo docker pull cppalliance/droneubuntu1604:1",
+      "sudo docker pull cppalliance/droneubuntu1404:1",
+      "sudo docker pull cppalliance/droneubuntu1204:1",
       "sudo docker pull drone/git:latest"
     ]
   }
