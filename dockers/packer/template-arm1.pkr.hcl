@@ -83,6 +83,8 @@ build {
       "sudo systemctl start docker && sleep 1",
       "sudo systemctl stop unattended-upgrades",
       "sudo systemctl disable unattended-upgrades",
+      "sudo systemctl disable apt-daily-upgrade.timer",
+      "sudo systemctl disable apt-daily.timer",
       "sudo fallocate -l 8G /swapfile",
       "sudo chmod 600 /swapfile",
       "sudo mkswap /swapfile",
