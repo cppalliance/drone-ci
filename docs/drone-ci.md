@@ -13,6 +13,7 @@ cppalliance/droneubuntu1604:1
 cppalliance/droneubuntu1804:1  
 cppalliance/droneubuntu2004:1  
 cppalliance/droneubuntu2204:1  
+cppalliance/droneubuntu2404:1  
 cppalliance/dronevs2017  
 cppalliance/dronevs2019:2  
 cppalliance/dronevs2022
@@ -99,6 +100,7 @@ cppalliance/droneubuntu1604:multiarch
 cppalliance/droneubuntu1804:multiarch  
 cppalliance/droneubuntu2004:multiarch  
 cppalliance/droneubuntu2204:multiarch  
+cppalliance/droneubuntu2404:multiarch  
 
 Include the parameter arch="arm64" or arch="s390x" in the job spec.
 
