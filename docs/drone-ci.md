@@ -14,6 +14,7 @@ cppalliance/droneubuntu1804:1
 cppalliance/droneubuntu2004:1  
 cppalliance/droneubuntu2204:1  
 cppalliance/droneubuntu2404:1  
+cppalliance/dronevs2015  
 cppalliance/dronevs2017  
 cppalliance/dronevs2019:2  
 cppalliance/dronevs2022
