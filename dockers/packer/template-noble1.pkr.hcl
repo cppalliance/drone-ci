@@ -41,7 +41,7 @@ source "amazon-ebs" "example" {
   # secret_key    = "${var.aws_secret_key}"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 50
+    volume_size = 60
     volume_type = "gp2"
     delete_on_termination = true
   }
