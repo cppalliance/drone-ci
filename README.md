@@ -22,7 +22,9 @@ If you are a Boost author, follow these steps to get started.
 - In the settings page, change Configuration from .drone.yml to .drone.star. "Save".  
   
 The drone files must be present in the target branch, so merge .drone.star into "develop" if you have not already done so.  
-  
+
+Example .drone.star files can be found in https://github.com/boostorg/boost-ci, and in fact the README.md in that repository also has instructions about setting up Drone.    
+
 Push a new commit or submit a pull request to trigger a build in drone.  
 
 The .drone.star file uses [the starlark language](https://docs.bazel.build/versions/master/skylark/language.html). Starlark’s syntax is inspired by (and nearly identical to) Python3. This allows great flexibility when creating a config file.  
