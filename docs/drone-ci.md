@@ -21,7 +21,7 @@ cppalliance/dronevs2022
   
 These images have been preinstalled with most of the packages found on a travis-ci image.  
 
-For OSX builds, specify the xcode version instead of the image. Recent versions of xcode from 10 to 15.0.1 are available. Include xcode_version in the job definition in .drone.star, such as `xcode_version="10.3"`.  
+For OSX builds, specify the xcode version instead of the image. Recent versions of xcode from 10 to 16.2.0 are available. Include xcode_version in the job definition in .drone.star, such as `xcode_version="10.3"`.  
 
 List of available versions:
 
