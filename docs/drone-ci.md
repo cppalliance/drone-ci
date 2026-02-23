@@ -30,6 +30,7 @@ List of available versions:
 10 10.1 10.2 10.3 11 11.1 11.2 11.2.1 11.3 11.4 11.5 11.6 11.7 12 12.1 12.2 12.3 12.4
 12.5 12.5.1 13.0 13.1 13.2 13.2.1 13.3 13.3.1 13.4 13.4.1 14.0 14.1
 14.2.0 14.3.0 14.3.1 15.0.0 15.0.1 15.1.0 15.2.0 15.3.0 15.4.0 16.0.0 16.1.0 16.2.0
+16.4.0 26.0.0 26.0.1 26.1.0 26.1.1 26.2.0
 ```
 
 Previous versions, out-of-date, now offline.
@@ -37,14 +38,33 @@ Previous versions, out-of-date, now offline.
 6.4 7 7.1 7.2 7.3 8 8.1 8.2 8.3 8.3.2 8.3.3 9 9.1 9.2 9.3 9.4 9.4.1
 ```
 
-FreeBSD uses the setting `freebsd_version` instead of `image`, and defaults to `freebsd_version="13.1"` which is the version being hosted currently. Here are examples of FreeBSD jobs. Notice the linkflags used with gcc:  
+### FreeBSD
+
+FreeBSD uses the setting `freebsd_version` instead of `image`, and defaults to `freebsd_version="13.1"`.
+
+### FreeBSD-15.0
+
+Here are examples of FreeBSD jobs. Notice the linkflags used with gcc:
+
+```
+  freebsd_cxx("gcc 15 freebsd", "g++-15", buildtype="boost", buildscript="drone", freebsd_version="15.0", environment={'B2_TOOLSET': 'gcc-15', 'B2_CXXSTD': '17,20', 'B2_LINKFLAGS': '-Wl,-rpath=/usr/local/lib/gcc15'}, globalenv=globalenv),
+  freebsd_cxx("clang 20 freebsd", "clang++-20", buildtype="boost", buildscript="drone", freebsd_version="15.0", environment={'B2_TOOLSET': 'clang-20', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
+```
+
+Full list of compilers on FreeBSD 15.0.
+```
+g++-14 g++-15
+clang++-12 clang++-13 clang++-14 clang++-15 clang++-16  clang++-17 clang++-18 clang++-19 clang++-20 clang++-21 clang++-22
+```
+
+### FreeBSD-13.1
 
 ```
   freebsd_cxx("gcc 11 freebsd", "g++-11", buildtype="boost", buildscript="drone", freebsd_version="13.1", environment={'B2_TOOLSET': 'gcc-11', 'B2_CXXSTD': '17,20', 'B2_LINKFLAGS': '-Wl,-rpath=/usr/local/lib/gcc11'}, globalenv=globalenv),
   freebsd_cxx("clang 14 freebsd", "clang++-14", buildtype="boost", buildscript="drone", freebsd_version="13.1", environment={'B2_TOOLSET': 'clang-14', 'B2_CXXSTD': '17,20'}, globalenv=globalenv),
 ```
 
-Full list of compilers on FreeBSD:  
+Full list of compilers on FreeBSD 13.1.
 ```
 g++-8 g++-9 g++-10 g++-11  
 clang++-10 clang++-11 clang++-12 clang++-13 clang++-14 clang++-15  
