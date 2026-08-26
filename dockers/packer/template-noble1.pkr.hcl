@@ -33,6 +33,12 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 # build blocks to create resources. A build block runs provisioners and
 # post-processors on an instance created by the source.
 source "amazon-ebs" "example" {
+
+  aws_polling {
+    delay_seconds = 30
+    max_attempts  = 300
+  }
+
   # access_key    = "${var.aws_access_key}"
   ami_name      = "custom drone ${local.timestamp}"
   instance_type = "t2.xlarge"
@@ -85,6 +91,7 @@ build {
       "sudo swapon /swapfile",
       "echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab",
       "sudo docker pull cppalliance/2404-p2996:1",
+      "sudo docker pull cppalliance/droneubuntu2604:1",
       "sudo docker pull cppalliance/droneubuntu2404:1",
       "sudo docker pull cppalliance/droneubuntu2204:1",
       "sudo docker pull cppalliance/droneubuntu2004:1",
